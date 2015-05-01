@@ -1,0 +1,107 @@
+package com.rmh.powernap.powernapalarm;
+
+
+import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+
+import com.special.ResideMenu.ResideMenu;
+import com.special.ResideMenu.ResideMenuItem;
+
+
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
+
+	private MainActivity mContext;
+	private ResideMenu resideMenu;
+	private ResideMenuItem itemStandardAlarm;
+	private ResideMenuItem itemCustomAlarm;
+	private ResideMenuItem itemSettings;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		mContext = this;
+
+		setUpLayout();
+
+		if(savedInstanceState == null){
+			changeFragment(new StandardAlarmFragment());
+		}
+	}
+
+	private void setUpLayout(){
+
+		resideMenu = new ResideMenu(this);
+		resideMenu.attachToActivity(this);
+		resideMenu.setMenuListener(menuListener);
+		resideMenu.setScaleValue(0.6f);
+
+		itemStandardAlarm = new ResideMenuItem(this, R.drawable.ic_launcher, "Standard Alarms");
+		itemCustomAlarm = new ResideMenuItem(this, R.drawable.ic_launcher, "Custom Alarms");
+		itemSettings = new ResideMenuItem(this, R.drawable.ic_launcher, "Settings");
+
+		itemStandardAlarm.setOnClickListener(this);
+		itemCustomAlarm.setOnClickListener(this);
+		itemSettings.setOnClickListener(this);
+
+		resideMenu.addMenuItem(itemStandardAlarm, ResideMenu.DIRECTION_LEFT);
+		resideMenu.addMenuItem(itemCustomAlarm, ResideMenu.DIRECTION_LEFT);
+		resideMenu.addMenuItem(itemSettings, ResideMenu.DIRECTION_RIGHT);
+
+		findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
+			}
+		});
+		findViewById(R.id.title_bar_right_menu).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
+			}
+		});
+	}
+
+	@Override
+	public void onClick(View view){
+
+	}
+
+	private ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
+		@Override
+		public void openMenu() {
+			// Do nothing
+		}
+
+		@Override
+		public void closeMenu() {
+			// Do nothing
+		}
+	};
+
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev){
+		return resideMenu.dispatchTouchEvent(ev);
+	}
+
+	private void changeFragment(Fragment targetFragment){
+		resideMenu.clearIgnoredViewList();
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.main_fragment, targetFragment, "fragment")
+				.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+				.commit();
+	}
+
+	public ResideMenu getResideMenu(){
+		return resideMenu;
+	}
+}
