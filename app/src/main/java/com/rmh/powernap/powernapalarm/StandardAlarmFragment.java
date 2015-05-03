@@ -69,10 +69,13 @@ public class StandardAlarmFragment extends Fragment {
 				Toast.makeText(getActivity(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
 			}
 		});
+		actions.add(t2);
 
 		MaterialLargeImageCard card = MaterialLargeImageCard.with(getActivity())
-				.setTextOverImage("10 minutes")
-				.useDrawableId(R.drawable.card_background)
+				.setTextOverImage("The Quickie")
+				.setTitle("10 Minutes")
+				.setSubTitle("Set a very quick 10 minute alarm")
+				.useDrawableId(R.drawable.ic_clock_face_45)
 				.setupSupplementalActions(R.layout.card_native_material_supplemental_actions_large, actions)
 				.build();
 
