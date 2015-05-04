@@ -65,6 +65,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 			@Override
 			public void onClick(View v) {
+
 				resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
 			}
 		});
@@ -72,6 +73,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 	@Override
 	public void onClick(View view){
+
+		if(view == itemStandardAlarm){
+			changeFragment(new StandardAlarmFragment());
+		} else if(view == itemCustomAlarm){
+			changeFragment(new CustomAlarmFragment());
+		}
 
 	}
 
