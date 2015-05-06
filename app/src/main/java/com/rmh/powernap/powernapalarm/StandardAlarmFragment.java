@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dexafree.materialList.cards.BasicImageButtonsCard;
+import com.dexafree.materialList.cards.OnButtonPressListener;
+import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.view.MaterialListView;
 import com.special.ResideMenu.ResideMenu;
 
-import java.util.ArrayList;
+
 
 public class StandardAlarmFragment extends Fragment {
 
@@ -82,6 +84,28 @@ public class StandardAlarmFragment extends Fragment {
 		card.setTitle(standardAlarms[i].imageText);
 		card.setDescription(standardAlarms[i].subTitle);
 		card.setDrawable(standardAlarms[i].image);
+		card.setLeftButtonText("Set Alarm");
+		card.setRightButtonText("Cancel Alarm");
+
+		card.setOnLeftButtonPressedListener(new OnButtonPressListener() {
+
+			@Override
+			public void onButtonPressedListener(View view, Card card) {
+
+				Toast.makeText(App.getContext(), "Alarm is set", Toast.LENGTH_SHORT).show();
+
+			}
+		});
+
+		card.setOnRightButtonPressedListener(new OnButtonPressListener() {
+
+			@Override
+			public void onButtonPressedListener(View view, Card card) {
+
+				Toast.makeText(App.getContext(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
+
+			}
+		});
 
 		return card;
 
