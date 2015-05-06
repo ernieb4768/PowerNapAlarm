@@ -1,9 +1,30 @@
 <resources>
 	<string name="app_name">Power Nap Alarm</string>
 
-	<string name="hello_world">Hello world!</string>
 	<string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="ten_minute_image_text">The Quickie</string>
+	<string name="ten_minute_title">10 minutes</string>
+	<string name="ten_minute_subtitle">The quickie is the shortest power nap, only 10 minutes</string>
+
+	<string name="fifteen_minute_image_text">The Short</string>
+	<string name="fifteen_minute_title">15 minutes</string>
+	<string name="fifteen_minute_subtitle">The short is a quarter-hour power nap</string>
+
+	<string name="twenty_minute_image_text">The Original</string>
+	<string name="twenty_minute_title">20 minutes</string>
+	<string name="twenty_minute_subtitle">The Original 20 minute power nap</string>
+
+	<string name="thirty_minute_image_text">The Half-Hour</string>
+	<string name="thirty_minute_title">30 minutes</string>
+	<string name="thirty_minute_subtitle">When the Original isn\'t quite long enough</string>
+
+	<string name="forty_five_minute_image_text">The Three-Quarters</string>
+	<string name="forty_five_minute_title">45 minutes</string>
+	<string name="forty_five_minute_subtitle">The 45 minute nap</string>
+	
+	<string name="sixty_minute_image_text">The Power Hour</string>
+	<string name="sixty_minute_title">60 minutes</string>
+	<string name="sixty_minute_subtitle">When all the others just aren\'t long enough</string>
+
 </resources>

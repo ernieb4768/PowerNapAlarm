@@ -1,37 +1,57 @@
 package com.rmh.powernap.powernapalarm;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.dexafree.materialList.cards.BasicImageButtonsCard;
+import com.dexafree.materialList.view.MaterialListView;
 import com.special.ResideMenu.ResideMenu;
 
 import java.util.ArrayList;
 
-import it.gmariotti.cardslib.library.cards.actions.BaseSupplementalAction;
-import it.gmariotti.cardslib.library.cards.actions.TextSupplementalAction;
-import it.gmariotti.cardslib.library.cards.material.MaterialLargeImageCard;
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.view.CardViewNative;
-
-
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link StandardAlarmFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link StandardAlarmFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class StandardAlarmFragment extends Fragment {
 
 	private View parentView;
 	private ResideMenu resideMenu;
-	private CardViewNative cardViewNative;
+
+	public StandardAlarm theQuickie = new StandardAlarm(
+			Resources.getSystem().getString(R.string.ten_minute_image_text),
+			Resources.getSystem().getString(R.string.ten_minute_title),
+			Resources.getSystem().getString(R.string.ten_minute_subtitle),
+			R.drawable.ic_clock_face_45);
+	public StandardAlarm theShort = new StandardAlarm(
+			Resources.getSystem().getString(R.string.fifteen_minute_image_text),
+			Resources.getSystem().getString(R.string.fifteen_minute_title),
+			Resources.getSystem().getString(R.string.fifteen_minute_subtitle),
+			R.drawable.ic_clock_face_45);
+	public StandardAlarm theOriginal = new StandardAlarm(
+			Resources.getSystem().getString(R.string.twenty_minute_image_text),
+			Resources.getSystem().getString(R.string.twenty_minute_title),
+			Resources.getSystem().getString(R.string.twenty_minute_subtitle),
+			R.drawable.ic_clock_face_45);
+	public StandardAlarm theHalfHour = new StandardAlarm(
+			Resources.getSystem().getString(R.string.thirty_minute_image_text),
+			Resources.getSystem().getString(R.string.thirty_minute_title),
+			Resources.getSystem().getString(R.string.thirty_minute_subtitle),
+			R.drawable.ic_clock_face_45);
+	public StandardAlarm theThreeQuarters = new StandardAlarm(
+			Resources.getSystem().getString(R.string.forty_five_minute_image_text),
+			Resources.getSystem().getString(R.string.forty_five_minute_title),
+			Resources.getSystem().getString(R.string.forty_five_minute_subtitle),
+			R.drawable.ic_clock_face_45);
+	public StandardAlarm thePowerHour = new StandardAlarm(
+			Resources.getSystem().getString(R.string.sixty_minute_image_text),
+			Resources.getSystem().getString(R.string.sixty_minute_title),
+			Resources.getSystem().getString(R.string.sixty_minute_subtitle),
+			R.drawable.ic_clock_face_45);
+	public StandardAlarm[] standardAlarms = {theQuickie, theShort, theOriginal, theHalfHour,
+											theThreeQuarters, thePowerHour};
 
 
 	@Override
@@ -47,40 +67,23 @@ public class StandardAlarmFragment extends Fragment {
 		resideMenu = parentActivity.getResideMenu();
 	}
 
-	private MaterialLargeImageCard buildMaterialCards(){
+	private void buildMaterialCards(){
 
-		ArrayList<BaseSupplementalAction> actions = new ArrayList<>();
-		TextSupplementalAction t1 = new TextSupplementalAction(getActivity(), R.id.text1);
-		t1.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
+		MaterialListView materialListView = (MaterialListView) parentView.findViewById(R.id.material_list_view);
 
-			@Override
-			public void onClick(Card card, View view) {
 
-				Toast.makeText(getActivity(), "Alarm is set", Toast.LENGTH_SHORT).show();
-			}
-		});
-		actions.add(t1);
-		TextSupplementalAction t2 = new TextSupplementalAction(getActivity(), R.id.text2);
-		t2.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
+		for(int i = 0; i < standardAlarms.length; i++){
+			materialListView.add(buildMaterialCard(i));
+		}
 
-			@Override
-			public void onClick(Card card, View view) {
+	}
 
-				Toast.makeText(getActivity(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
-			}
-		});
-		actions.add(t2);
+	private BasicImageButtonsCard buildMaterialCard(int i){
 
-		MaterialLargeImageCard card = MaterialLargeImageCard.with(getActivity())
-				.setTextOverImage("The Quickie")
-				.setTitle("10 Minutes")
-				.setSubTitle("Set a very quick 10 minute alarm")
-				.useDrawableId(R.drawable.ic_clock_face_45)
-				.setupSupplementalActions(R.layout.card_native_material_supplemental_actions_large, actions)
-				.build();
-
-		cardViewNative = (CardViewNative) this.parentView.findViewById(R.id.materialCard);
-		cardViewNative.setCard(card);
+		BasicImageButtonsCard card = new BasicImageButtonsCard(this.getActivity());
+		card.setTitle(standardAlarms[i].imageText);
+		card.setDescription(standardAlarms[i].subTitle);
+		card.setDrawable(standardAlarms[i].image);
 
 		return card;
 
