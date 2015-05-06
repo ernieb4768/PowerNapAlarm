@@ -86,6 +86,7 @@ public class StandardAlarmFragment extends Fragment {
 		card.setDrawable(standardAlarms[i].image);
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
+		card.setDividerVisible(true);
 
 		card.setOnLeftButtonPressedListener(new OnButtonPressListener() {
 

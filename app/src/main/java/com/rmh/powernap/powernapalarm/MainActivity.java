@@ -39,12 +39,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 		resideMenu = new ResideMenu(this);
 		resideMenu.attachToActivity(this);
+		resideMenu.setBackgroundColor(getResources().getColor(R.color.scarlet));
 		resideMenu.setMenuListener(menuListener);
 		resideMenu.setScaleValue(0.6f);
 
-		itemStandardAlarm = new ResideMenuItem(this, R.drawable.ic_launcher, "Standard Alarms");
-		itemCustomAlarm = new ResideMenuItem(this, R.drawable.ic_launcher, "Custom Alarms");
-		itemSettings = new ResideMenuItem(this, R.drawable.ic_launcher, "Settings");
+		itemStandardAlarm = new ResideMenuItem(this, R.drawable.ic_clock_face_45, "Standard Alarms");
+		itemCustomAlarm = new ResideMenuItem(this, R.drawable.ic_clock_face_45, "Custom Alarms");
+		itemSettings = new ResideMenuItem(this, R.drawable.ic_settings, "Settings");
 
 		itemStandardAlarm.setOnClickListener(this);
 		itemCustomAlarm.setOnClickListener(this);
