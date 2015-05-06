@@ -1,9 +1,7 @@
 package com.rmh.powernap.powernapalarm;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,34 +19,34 @@ public class StandardAlarmFragment extends Fragment {
 	private ResideMenu resideMenu;
 
 	public StandardAlarm theQuickie = new StandardAlarm(
-			Resources.getSystem().getString(R.string.ten_minute_image_text),
-			Resources.getSystem().getString(R.string.ten_minute_title),
-			Resources.getSystem().getString(R.string.ten_minute_subtitle),
+			App.getContext().getString(R.string.ten_minute_image_text),
+			App.getContext().getString(R.string.ten_minute_title),
+			App.getContext().getString(R.string.ten_minute_subtitle),
 			R.drawable.ic_clock_face_45);
 	public StandardAlarm theShort = new StandardAlarm(
-			Resources.getSystem().getString(R.string.fifteen_minute_image_text),
-			Resources.getSystem().getString(R.string.fifteen_minute_title),
-			Resources.getSystem().getString(R.string.fifteen_minute_subtitle),
+			App.getContext().getString(R.string.fifteen_minute_image_text),
+			App.getContext().getString(R.string.fifteen_minute_title),
+			App.getContext().getString(R.string.fifteen_minute_subtitle),
 			R.drawable.ic_clock_face_45);
 	public StandardAlarm theOriginal = new StandardAlarm(
-			Resources.getSystem().getString(R.string.twenty_minute_image_text),
-			Resources.getSystem().getString(R.string.twenty_minute_title),
-			Resources.getSystem().getString(R.string.twenty_minute_subtitle),
+			App.getContext().getString(R.string.twenty_minute_image_text),
+			App.getContext().getString(R.string.twenty_minute_title),
+			App.getContext().getString(R.string.twenty_minute_subtitle),
 			R.drawable.ic_clock_face_45);
 	public StandardAlarm theHalfHour = new StandardAlarm(
-			Resources.getSystem().getString(R.string.thirty_minute_image_text),
-			Resources.getSystem().getString(R.string.thirty_minute_title),
-			Resources.getSystem().getString(R.string.thirty_minute_subtitle),
+			App.getContext().getString(R.string.thirty_minute_image_text),
+			App.getContext().getString(R.string.thirty_minute_title),
+			App.getContext().getString(R.string.thirty_minute_subtitle),
 			R.drawable.ic_clock_face_45);
 	public StandardAlarm theThreeQuarters = new StandardAlarm(
-			Resources.getSystem().getString(R.string.forty_five_minute_image_text),
-			Resources.getSystem().getString(R.string.forty_five_minute_title),
-			Resources.getSystem().getString(R.string.forty_five_minute_subtitle),
+			App.getContext().getString(R.string.forty_five_minute_image_text),
+			App.getContext().getString(R.string.forty_five_minute_title),
+			App.getContext().getString(R.string.forty_five_minute_subtitle),
 			R.drawable.ic_clock_face_45);
 	public StandardAlarm thePowerHour = new StandardAlarm(
-			Resources.getSystem().getString(R.string.sixty_minute_image_text),
-			Resources.getSystem().getString(R.string.sixty_minute_title),
-			Resources.getSystem().getString(R.string.sixty_minute_subtitle),
+			App.getContext().getString(R.string.sixty_minute_image_text),
+			App.getContext().getString(R.string.sixty_minute_title),
+			App.getContext().getString(R.string.sixty_minute_subtitle),
 			R.drawable.ic_clock_face_45);
 	public StandardAlarm[] standardAlarms = {theQuickie, theShort, theOriginal, theHalfHour,
 											theThreeQuarters, thePowerHour};
