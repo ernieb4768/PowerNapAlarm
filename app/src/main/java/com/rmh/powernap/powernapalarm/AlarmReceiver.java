@@ -1,25 +1,29 @@
 package com.rmh.powernap.powernapalarm;
 
-
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class AlarmReceiver extends WakefulBroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
 
 	@Override
-	public void onReceive(final Context context, Intent intent){
+	public void onReceive(Context context, Intent intent){
 
-		Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-		if(alarmUri == null){
-			alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		}
-		Ringtone ringtone = RingtoneManager.getRingtone(App.getContext(), alarmUri);
-		ringtone.play();
+		setAlarm(context);
 
+	}
+
+	public static void setAlarm(Context context){
+
+	}
+
+	public static void cancelAlarm(Context context){
+
+	}
+
+	private static PendingIntent createPendingIntent(Context context, AlarmClock clock){
+		return null;
 	}
 
 }

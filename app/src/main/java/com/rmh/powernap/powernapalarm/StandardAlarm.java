@@ -16,4 +16,20 @@ public class StandardAlarm {
 
 	}
 
+	public int getImage(){
+		return image;
+	}
+
+	public String getImageText(){
+		return imageText;
+	}
+
+	public String getTitle(){
+		return title;
+	}
+
+	public String getSubTitle(){
+		return subTitle;
+	}
+
 }

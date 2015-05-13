@@ -1,5 +1,7 @@
 package com.rmh.powernap.powernapalarm;
 
+import android.app.AlarmManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,6 +21,9 @@ public class StandardAlarmFragment extends Fragment {
 
 	private View parentView;
 	private ResideMenu resideMenu;
+	private AlarmManager alarmManager =
+			(AlarmManager)(App.getContext().getSystemService(Context.ALARM_SERVICE));
+	private AlarmClock alarmClock = new AlarmClock(alarmManager);
 
 	public StandardAlarm theQuickie = new StandardAlarm(
 			App.getContext().getString(R.string.ten_minute_image_text),
@@ -69,10 +74,11 @@ public class StandardAlarmFragment extends Fragment {
 
 	private void buildMaterialCards(){
 
+		int len = standardAlarms.length;
+
 		MaterialListView materialListView = (MaterialListView) parentView.findViewById(R.id.material_list_view);
 
-
-		for(int i = 0; i < standardAlarms.length; i++){
+		for(int i = 0; i < len; i++){
 			materialListView.add(buildMaterialCard(i));
 		}
 
@@ -93,6 +99,8 @@ public class StandardAlarmFragment extends Fragment {
 			@Override
 			public void onButtonPressedListener(View view, Card card) {
 
+				alarmClock.setAlarm();
+
 				Toast.makeText(App.getContext(), "Alarm is set", Toast.LENGTH_SHORT).show();
 
 			}
@@ -102,6 +110,8 @@ public class StandardAlarmFragment extends Fragment {
 
 			@Override
 			public void onButtonPressedListener(View view, Card card) {
+
+				alarmClock.cancelAlarm();
 
 				Toast.makeText(App.getContext(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
 

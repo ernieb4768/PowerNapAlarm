@@ -3,8 +3,7 @@ package com.rmh.powernap.powernapalarm;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-
-import java.util.Calendar;
+import android.os.SystemClock;
 
 /**
  * AlarmClock is a manager for creating, setting, and cancelling all alarms.
@@ -15,24 +14,28 @@ public class AlarmClock {
 	public AlarmManager alarmManager;
 
 	public AlarmClock(AlarmManager alarmManager){
+
 		this.alarmManager = alarmManager;
+
 	}
 
+	// Set an alarm for 1 minute from the current time
 	public void setAlarm(){
-
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, 8);
-		calendar.set(Calendar.MINUTE, 10);
 
 		Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
 		pendingIntent = PendingIntent.getBroadcast(App.getContext(), 0, intent, 0);
-		alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+		alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+				SystemClock.elapsedRealtime() + 60 * 1000,
+				pendingIntent);
 
 	}
 
+	// If the alarm is set, cancel it. This is called when the "Cancel" button on the card is clicked
 	public void cancelAlarm(){
 
-		alarmManager.cancel(pendingIntent);
+		if(alarmManager != null){
+			alarmManager.cancel(pendingIntent);
+		}
 
 	}
 
