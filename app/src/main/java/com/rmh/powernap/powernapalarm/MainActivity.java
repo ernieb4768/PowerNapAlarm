@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 		resideMenu = new ResideMenu(this);
 		resideMenu.attachToActivity(this);
-		resideMenu.setBackgroundColor(getResources().getColor(R.color.scarlet));
+		resideMenu.setBackgroundColor(getResources().getColor(R.color.gray));
 		resideMenu.setMenuListener(menuListener);
 		resideMenu.setScaleValue(0.6f);
 
