@@ -29,32 +29,32 @@ public class StandardAlarmFragment extends Fragment {
 			App.getContext().getString(R.string.ten_minute_image_text),
 			App.getContext().getString(R.string.ten_minute_title),
 			App.getContext().getString(R.string.ten_minute_subtitle),
-			R.drawable.ic_clock_face_45);
+			R.mipmap.ic_clock_face_45);
 	public StandardAlarm theShort = new StandardAlarm(
 			App.getContext().getString(R.string.fifteen_minute_image_text),
 			App.getContext().getString(R.string.fifteen_minute_title),
 			App.getContext().getString(R.string.fifteen_minute_subtitle),
-			R.drawable.ic_clock_face_45);
+			R.mipmap.ic_clock_face_15);
 	public StandardAlarm theOriginal = new StandardAlarm(
 			App.getContext().getString(R.string.twenty_minute_image_text),
 			App.getContext().getString(R.string.twenty_minute_title),
 			App.getContext().getString(R.string.twenty_minute_subtitle),
-			R.drawable.ic_clock_face_45);
+			R.mipmap.ic_clock_face_45);
 	public StandardAlarm theHalfHour = new StandardAlarm(
 			App.getContext().getString(R.string.thirty_minute_image_text),
 			App.getContext().getString(R.string.thirty_minute_title),
 			App.getContext().getString(R.string.thirty_minute_subtitle),
-			R.drawable.ic_clock_face_45);
+			R.mipmap.ic_clock_face_30);
 	public StandardAlarm theThreeQuarters = new StandardAlarm(
 			App.getContext().getString(R.string.forty_five_minute_image_text),
 			App.getContext().getString(R.string.forty_five_minute_title),
 			App.getContext().getString(R.string.forty_five_minute_subtitle),
-			R.drawable.ic_clock_face_45);
+			R.mipmap.ic_clock_face_45);
 	public StandardAlarm thePowerHour = new StandardAlarm(
 			App.getContext().getString(R.string.sixty_minute_image_text),
 			App.getContext().getString(R.string.sixty_minute_title),
 			App.getContext().getString(R.string.sixty_minute_subtitle),
-			R.drawable.ic_clock_face_45);
+			R.mipmap.ic_clock_face_45);
 	public StandardAlarm[] standardAlarms = {theQuickie, theShort, theOriginal, theHalfHour,
 											theThreeQuarters, thePowerHour};
 
@@ -90,8 +90,8 @@ public class StandardAlarmFragment extends Fragment {
 		card.setTitle(standardAlarms[i].imageText);
 		card.setDescription(standardAlarms[i].subTitle);
 		card.setDrawable(standardAlarms[i].image);
-		card.setLeftButtonText("Set Alarm");
-		card.setRightButtonText("Cancel Alarm");
+		card.setLeftButtonText(R.string.card_button_set);
+		card.setRightButtonText(R.string.card_button_cancel);
 		card.setDividerVisible(true);
 
 		card.setOnLeftButtonPressedListener(new OnButtonPressListener() {

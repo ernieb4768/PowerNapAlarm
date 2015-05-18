@@ -27,7 +27,14 @@
 	<string name="sixty_minute_title">60 minutes</string>
 	<string name="sixty_minute_subtitle">When all the others just aren\'t long enough</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="dialog_title">New Alarm</string>
+	<string name="dialog_content">How long do you want to set your alarm for\?</string>
+	<string name="dialog_positive">Create</string>
+	<string name="dialog_negative">Cancel</string>
+	<string name="dialog_hint_hours">Hours</string>
+	<string name="dialog_hint_minutes">Minutes</string>
+
+	<string name="card_button_set">Set Alarm</string>
+	<string name="card_button_cancel">Cancel Alarm</string>
 
 </resources>

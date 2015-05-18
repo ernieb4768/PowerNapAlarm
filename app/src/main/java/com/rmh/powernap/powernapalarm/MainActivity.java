@@ -43,8 +43,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		resideMenu.setMenuListener(menuListener);
 		resideMenu.setScaleValue(0.6f);
 
-		itemStandardAlarm = new ResideMenuItem(this, R.drawable.ic_clock_face_45, "Standard Alarms");
-		itemCustomAlarm = new ResideMenuItem(this, R.drawable.ic_clock_face_45, "Custom Alarms");
+		itemStandardAlarm = new ResideMenuItem(this, R.mipmap.ic_clock_face_15, "Standard Alarms");
+		itemCustomAlarm = new ResideMenuItem(this, R.mipmap.ic_clock_face_45, "Custom Alarms");
 		itemSettings = new ResideMenuItem(this, R.drawable.ic_settings, "Settings");
 
 		itemStandardAlarm.setOnClickListener(this);
