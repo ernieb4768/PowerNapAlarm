@@ -1,14 +1,13 @@
 package com.rmh.powernap.powernapalarm;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -66,26 +65,64 @@ public class CustomAlarmFragment extends Fragment {
 			}
 		});
 
+		DatabaseOperations databaseOperations = new DatabaseOperations(App.getContext());
+		Cursor cursor = databaseOperations.getInformation(databaseOperations);
+		cursor.moveToFirst();
+		int HOUR;
+		int MINUTE;
+		if(cursor.getCount()>= 1) {
+			do {
+				HOUR = cursor.getInt(0);
+				MINUTE = cursor.getInt(1);
+				addCardsFromDatabase(HOUR, MINUTE);
+			} while(cursor.moveToNext());
+		}
+
 	}
 
-	private void setUpLayout(){
+	private void setUpLayout(int h, int m){
 
-		BasicButtonsCard newCard = createCards(hour + " hours");
+		BasicButtonsCard newCard = createCards(h, m);
 
 			// Add the card to the ListView so it will be displayed on the screen
 			listView.add(newCard);
 
 	}
 
-	private BasicButtonsCard createCards(String heading){
+	private BasicButtonsCard createCards(int h, int m){
 
+		// Create the card and add the content
 		BasicButtonsCard card = new BasicButtonsCard(this.getActivity());
-
 		card.setDividerVisible(true);
-		card.setTitle(heading);
+		card.setTitle(h + " hours");
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
-		card.setDescription(hour + " hours and " + minute + " minutes.");
+		card.setDescription(h + " hours and " + m + " minutes.");
+
+		// Add the card info to the database
+		DatabaseOperations databaseOperations = new DatabaseOperations(App.getContext());
+		databaseOperations.putInformation(databaseOperations, h, m);
+
+		return card;
+
+	}
+
+	private void addCardsFromDatabase(int h, int m){
+
+		BasicButtonsCard newCard = makeCardsFromDatabase(h, m);
+
+		listView.add(newCard);
+	}
+
+	private BasicButtonsCard makeCardsFromDatabase(int h, int m){
+
+		// Create the card and add the content
+		BasicButtonsCard card = new BasicButtonsCard(this.getActivity());
+		card.setDividerVisible(true);
+		card.setTitle(h + " hours");
+		card.setLeftButtonText("Set Alarm");
+		card.setRightButtonText("Cancel Alarm");
+		card.setDescription(h + " hours and " + m + " minutes.");
 
 		return card;
 
@@ -129,7 +166,7 @@ public class CustomAlarmFragment extends Fragment {
 						minute = Integer.parseInt(charSequence.toString());
 						Log.d("CHAR_SEQUENCE_MINUTE", charSequence.toString());
 
-						setUpLayout();
+						setUpLayout(hour, minute);
 					}
 				}).show();
 
