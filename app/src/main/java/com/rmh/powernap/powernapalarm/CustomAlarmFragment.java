@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.dexafree.materialList.cards.BasicButtonsCard;
 import com.dexafree.materialList.view.MaterialListView;
 import com.melnykov.fab.FloatingActionButton;
 import com.special.ResideMenu.ResideMenu;
@@ -25,7 +24,7 @@ public class CustomAlarmFragment extends Fragment {
 	private int minute;
 	private MaterialListView listView;
 
-	@Override
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
 		parentView = inflater.inflate(R.layout.fragment_custom_alarm, container, false);
@@ -53,6 +52,8 @@ public class CustomAlarmFragment extends Fragment {
 
 		// Initialize the list view
 		listView = (MaterialListView) parentView.findViewById(R.id.custom_alarm_list);
+
+		resideMenu.addIgnoredView(listView);
 
 		FloatingActionButton fab = (FloatingActionButton) parentView.findViewById(R.id.fab);
 		fab.attachToRecyclerView(listView);
@@ -82,22 +83,23 @@ public class CustomAlarmFragment extends Fragment {
 
 	private void setUpLayout(int h, int m){
 
-		BasicButtonsCard newCard = createCards(h, m);
+		CustomCard newCard = createCards(h, m);
 
 			// Add the card to the ListView so it will be displayed on the screen
 			listView.add(newCard);
 
 	}
 
-	private BasicButtonsCard createCards(int h, int m){
+	private CustomCard createCards(int h, int m){
 
 		// Create the card and add the content
-		BasicButtonsCard card = new BasicButtonsCard(this.getActivity());
+		CustomCard card = new CustomCard(this.getActivity());
 		card.setDividerVisible(true);
 		card.setTitle(h + " hours");
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
+		card.setDismissible(true);
 
 		// Add the card info to the database
 		DatabaseOperations databaseOperations = new DatabaseOperations(App.getContext());
@@ -109,20 +111,21 @@ public class CustomAlarmFragment extends Fragment {
 
 	private void addCardsFromDatabase(int h, int m){
 
-		BasicButtonsCard newCard = makeCardsFromDatabase(h, m);
+		CustomCard newCard = makeCardsFromDatabase(h, m);
 
 		listView.add(newCard);
 	}
 
-	private BasicButtonsCard makeCardsFromDatabase(int h, int m){
+	private CustomCard makeCardsFromDatabase(int h, int m){
 
 		// Create the card and add the content
-		BasicButtonsCard card = new BasicButtonsCard(this.getActivity());
+		CustomCard card = new CustomCard(this.getActivity());
 		card.setDividerVisible(true);
 		card.setTitle(h + " hours");
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
+		card.setDismissible(true);
 
 		return card;
 
