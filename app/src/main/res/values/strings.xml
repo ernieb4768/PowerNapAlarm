@@ -37,4 +37,6 @@
 	<string name="card_button_set">Set Alarm</string>
 	<string name="card_button_cancel">Cancel Alarm</string>
 
+	<string name="delete">Delete</string>
+
 </resources>

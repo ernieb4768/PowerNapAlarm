@@ -54,22 +54,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		resideMenu.addMenuItem(itemCustomAlarm, ResideMenu.DIRECTION_LEFT);
 		resideMenu.addMenuItem(itemSettings, ResideMenu.DIRECTION_RIGHT);
 
-		findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
-			}
-		});
-
-		findViewById(R.id.title_bar_right_menu).setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
-			}
-		});
-
 	}
 
 	@Override

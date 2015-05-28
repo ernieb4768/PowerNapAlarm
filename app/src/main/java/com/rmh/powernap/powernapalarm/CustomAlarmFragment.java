@@ -1,13 +1,16 @@
 package com.rmh.powernap.powernapalarm;
 
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -23,6 +26,7 @@ public class CustomAlarmFragment extends Fragment {
 	private int hour;
 	private int minute;
 	private MaterialListView listView;
+	private PopupMenu.OnMenuItemClickListener listener;
 
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -52,8 +56,6 @@ public class CustomAlarmFragment extends Fragment {
 
 		// Initialize the list view
 		listView = (MaterialListView) parentView.findViewById(R.id.custom_alarm_list);
-
-		resideMenu.addIgnoredView(listView);
 
 		FloatingActionButton fab = (FloatingActionButton) parentView.findViewById(R.id.fab);
 		fab.attachToRecyclerView(listView);
@@ -99,7 +101,8 @@ public class CustomAlarmFragment extends Fragment {
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
-		card.setDismissible(true);
+
+
 
 		// Add the card info to the database
 		DatabaseOperations databaseOperations = new DatabaseOperations(App.getContext());
@@ -108,6 +111,8 @@ public class CustomAlarmFragment extends Fragment {
 		return card;
 
 	}
+
+
 
 	private void addCardsFromDatabase(int h, int m){
 
@@ -125,7 +130,8 @@ public class CustomAlarmFragment extends Fragment {
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
-		card.setDismissible(true);
+
+
 
 		return card;
 
@@ -174,5 +180,35 @@ public class CustomAlarmFragment extends Fragment {
 				}).show();
 
 	}
+
+	/*private void addMenuItemListener(){
+
+		listener = new PopupMenu.OnMenuItemClickListener() {
+
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+
+				if(item.getItemId() == R.id.overflow_delete){
+					Toast.makeText(parentView.getContext(), "I'm working", Toast.LENGTH_SHORT).show();
+					return true;
+				}
+				return false;
+			}
+		};
+
+		// OnClick Listener for the overflow menu to delete the alarm
+		parentView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				PopupMenu popupMenu = new PopupMenu(parentView.getContext(), v);
+				popupMenu.setOnMenuItemClickListener(listener);
+				popupMenu.inflate(R.menu.menu_overflow);
+				popupMenu.show();
+
+			}
+		});
+	}*/
 
 }
