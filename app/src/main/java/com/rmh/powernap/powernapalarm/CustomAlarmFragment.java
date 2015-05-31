@@ -1,6 +1,6 @@
 package com.rmh.powernap.powernapalarm;
 
-import android.content.res.Resources;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -26,12 +26,12 @@ public class CustomAlarmFragment extends Fragment {
 	private int hour;
 	private int minute;
 	private MaterialListView listView;
-	private PopupMenu.OnMenuItemClickListener listener;
-
+	private View cardView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
 		parentView = inflater.inflate(R.layout.fragment_custom_alarm, container, false);
+		cardView = inflater.inflate(R.layout.custom_card_layout, container, false);
 		setUpViews();
 
 		return parentView;
@@ -71,9 +71,10 @@ public class CustomAlarmFragment extends Fragment {
 		DatabaseOperations databaseOperations = new DatabaseOperations(App.getContext());
 		Cursor cursor = databaseOperations.getInformation(databaseOperations);
 		cursor.moveToFirst();
+		int size = cursor.getCount();
 		int HOUR;
 		int MINUTE;
-		if(cursor.getCount()>= 1) {
+		if(size >= 1) {
 			do {
 				HOUR = cursor.getInt(0);
 				MINUTE = cursor.getInt(1);
@@ -102,7 +103,14 @@ public class CustomAlarmFragment extends Fragment {
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
 
+		ImageButton button = (ImageButton) cardView.findViewById(R.id.settings_button);
+		button.setOnClickListener(new View.OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(App.getContext(), "Alarm is deleted", Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		// Add the card info to the database
 		DatabaseOperations databaseOperations = new DatabaseOperations(App.getContext());
@@ -131,7 +139,14 @@ public class CustomAlarmFragment extends Fragment {
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
 
+		ImageButton button = (ImageButton) cardView.findViewById(R.id.settings_button);
+		button.setOnClickListener(new View.OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(App.getContext(), "Alarm is deleted", Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		return card;
 
@@ -180,35 +195,5 @@ public class CustomAlarmFragment extends Fragment {
 				}).show();
 
 	}
-
-	/*private void addMenuItemListener(){
-
-		listener = new PopupMenu.OnMenuItemClickListener() {
-
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-
-				if(item.getItemId() == R.id.overflow_delete){
-					Toast.makeText(parentView.getContext(), "I'm working", Toast.LENGTH_SHORT).show();
-					return true;
-				}
-				return false;
-			}
-		};
-
-		// OnClick Listener for the overflow menu to delete the alarm
-		parentView.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				PopupMenu popupMenu = new PopupMenu(parentView.getContext(), v);
-				popupMenu.setOnMenuItemClickListener(listener);
-				popupMenu.inflate(R.menu.menu_overflow);
-				popupMenu.show();
-
-			}
-		});
-	}*/
 
 }

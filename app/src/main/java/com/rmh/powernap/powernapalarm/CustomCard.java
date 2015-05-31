@@ -1,11 +1,9 @@
 package com.rmh.powernap.powernapalarm;
 
 import android.content.Context;
-import android.support.v7.internal.view.menu.MenuBuilder;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.dexafree.materialList.cards.BasicButtonsCard;
 /**
@@ -14,6 +12,11 @@ import com.dexafree.materialList.cards.BasicButtonsCard;
  */
 
 public class CustomCard extends BasicButtonsCard {
+
+	protected int mPopupMenu = NO_POPUP_MENU;
+	public static int NO_POPUP_MENU = -1;
+	protected OnClickCardHeaderPopupMenuListener mPopupMenuListener;
+	protected OnPrepareCardHeaderPopupMenuListener mPopupMenuPrepareListener;
 
 	public CustomCard(final Context context){
 		super(context);
@@ -24,36 +27,45 @@ public class CustomCard extends BasicButtonsCard {
 		return R.layout.custom_card_layout;
 	}
 
+	public interface OnClickCardHeaderPopupMenuListener {
+		void onMenuItemClick(View view, MenuItem item);
+	}
 
-	// Custom onClickListener to open the overflow menu
-	public static class OnCardOverflowSelectedListener implements View.OnClickListener {
+	public interface OnPrepareCardHeaderPopupMenuListener {
 
-		private CustomCard customCard;
-		private Context mContext;
-		private PopupMenu.OnMenuItemClickListener listener;
+		boolean onPreparePopupMenu(CustomCard card, PopupMenu popupMenu);
+	}
 
-		public OnCardOverflowSelectedListener(Context context, CustomCard card){
-			mContext = context;
-			customCard = card;
-		}
+	public void setPopupMenu(int menuRes, OnClickCardHeaderPopupMenuListener listener, OnPrepareCardHeaderPopupMenuListener prepareListener) {
+		mPopupMenu = menuRes;
+		mPopupMenuListener = listener;
+		mPopupMenuPrepareListener = prepareListener;
+	}
 
-		@Override
-		public void onClick(View view){
-			listener = new PopupMenu.OnMenuItemClickListener() {
 
-				@Override
-				public boolean onMenuItemClick(MenuItem item) {
+	public void setPopupMenu(int menuRes, OnClickCardHeaderPopupMenuListener listener) {
+		setPopupMenu(menuRes, listener, null);
+	}
 
-					if(item.getItemId() == R.id.overflow_delete){
-						Toast.makeText(App.getContext(), "I'm working", Toast.LENGTH_SHORT).show();
-						return true;
-					}
-					return false;
-				}
-			};
 
-		}
+	public OnClickCardHeaderPopupMenuListener getPopupMenuListener() {
+		return mPopupMenuListener;
+	}
 
+	public OnPrepareCardHeaderPopupMenuListener getPopupMenuPrepareListener() {
+		return mPopupMenuPrepareListener;
+	}
+
+	public void setPopupMenuListener(OnClickCardHeaderPopupMenuListener popupMenuListener) {
+		mPopupMenuListener = popupMenuListener;
+	}
+
+	public void setPopupMenuPrepareListener(OnPrepareCardHeaderPopupMenuListener popupMenuListener) {
+		mPopupMenuPrepareListener = popupMenuListener;
+	}
+
+	public int getPopupMenu() {
+		return mPopupMenu;
 	}
 
 }
