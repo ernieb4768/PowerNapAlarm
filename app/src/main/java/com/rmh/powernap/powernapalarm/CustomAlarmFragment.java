@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dexafree.materialList.cards.OnButtonPressListener;
+import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.view.MaterialListView;
 import com.melnykov.fab.FloatingActionButton;
@@ -104,13 +105,19 @@ public class CustomAlarmFragment extends Fragment {
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
+		card.setDismissible(true);
 
 		card.setOnRightButtonPressedListener(new OnButtonPressListener() {
 
 			@Override
 			public void onButtonPressedListener(View view, Card card) {
+
+				// Delete the card from the SQLite Database
 				DatabaseOperations dop = new DatabaseOperations(App.getContext());
 				dop.deleteCard(dop, hrs, mts);
+
+				// Dismiss the card from the view
+				listView.remove(card);
 
 				Toast.makeText(App.getContext(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
 			}
@@ -129,6 +136,7 @@ public class CustomAlarmFragment extends Fragment {
 		CustomCard newCard = makeCardsFromDatabase(h, m);
 
 		listView.add(newCard);
+
 	}
 
 	private CustomCard makeCardsFromDatabase(int h, int m){
@@ -151,9 +159,14 @@ public class CustomAlarmFragment extends Fragment {
 				DatabaseOperations dop = new DatabaseOperations(App.getContext());
 				dop.deleteCard(dop, hrs, mts);
 
+				// Dismiss the card from the view
+				listView.remove(card);
+
 				Toast.makeText(App.getContext(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
 			}
 		});
+
+		card.setDismissible(true);
 
 		return card;
 
