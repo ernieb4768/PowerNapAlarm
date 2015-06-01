@@ -54,4 +54,12 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
 	}
 
+	public void deleteCard(DatabaseOperations operations, int hour, int minute){
+		String selection = TableData.TableInfo.HOURS + " LIKE ? AND " + TableData.TableInfo.MINUTES + " LIKE ?";
+		String args[] = {hour + "", minute + ""};
+		SQLiteDatabase sq = getWritableDatabase();
+		sq.delete(TableData.TableInfo.TABLE_NAME, selection, args);
+
+	}
+
 }

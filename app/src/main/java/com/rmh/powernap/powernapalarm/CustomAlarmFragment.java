@@ -1,19 +1,18 @@
 package com.rmh.powernap.powernapalarm;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.dexafree.materialList.cards.OnButtonPressListener;
+import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.view.MaterialListView;
 import com.melnykov.fab.FloatingActionButton;
 import com.special.ResideMenu.ResideMenu;
@@ -95,6 +94,9 @@ public class CustomAlarmFragment extends Fragment {
 
 	private CustomCard createCards(int h, int m){
 
+		final int hrs = h;
+		final int mts = m;
+
 		// Create the card and add the content
 		CustomCard card = new CustomCard(this.getActivity());
 		card.setDividerVisible(true);
@@ -103,12 +105,14 @@ public class CustomAlarmFragment extends Fragment {
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
 
-		ImageButton button = (ImageButton) cardView.findViewById(R.id.settings_button);
-		button.setOnClickListener(new View.OnClickListener() {
+		card.setOnRightButtonPressedListener(new OnButtonPressListener() {
 
 			@Override
-			public void onClick(View v) {
-				Toast.makeText(App.getContext(), "Alarm is deleted", Toast.LENGTH_SHORT).show();
+			public void onButtonPressedListener(View view, Card card) {
+				DatabaseOperations dop = new DatabaseOperations(App.getContext());
+				dop.deleteCard(dop, hrs, mts);
+
+				Toast.makeText(App.getContext(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -120,8 +124,6 @@ public class CustomAlarmFragment extends Fragment {
 
 	}
 
-
-
 	private void addCardsFromDatabase(int h, int m){
 
 		CustomCard newCard = makeCardsFromDatabase(h, m);
@@ -131,6 +133,9 @@ public class CustomAlarmFragment extends Fragment {
 
 	private CustomCard makeCardsFromDatabase(int h, int m){
 
+		final int hrs = h;
+		final int mts = m;
+
 		// Create the card and add the content
 		CustomCard card = new CustomCard(this.getActivity());
 		card.setDividerVisible(true);
@@ -139,12 +144,14 @@ public class CustomAlarmFragment extends Fragment {
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
 
-		ImageButton button = (ImageButton) cardView.findViewById(R.id.settings_button);
-		button.setOnClickListener(new View.OnClickListener() {
+		card.setOnRightButtonPressedListener(new OnButtonPressListener() {
 
 			@Override
-			public void onClick(View v) {
-				Toast.makeText(App.getContext(), "Alarm is deleted", Toast.LENGTH_SHORT).show();
+			public void onButtonPressedListener(View view, Card card) {
+				DatabaseOperations dop = new DatabaseOperations(App.getContext());
+				dop.deleteCard(dop, hrs, mts);
+
+				Toast.makeText(App.getContext(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
 			}
 		});
 
