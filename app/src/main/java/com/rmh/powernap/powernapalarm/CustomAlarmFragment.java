@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.dexafree.materialList.cards.OnButtonPressListener;
-import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.view.MaterialListView;
 import com.melnykov.fab.FloatingActionButton;
@@ -105,7 +104,14 @@ public class CustomAlarmFragment extends Fragment {
 		card.setLeftButtonText("Set Alarm");
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
-		card.setDismissible(true);
+
+		card.setOnOverflowButtonPressedListener(new OnButtonPressListener() {
+
+			@Override
+			public void onButtonPressedListener(View view, Card card) {
+				Toast.makeText(App.getContext(), "I'm working", Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		card.setOnRightButtonPressedListener(new OnButtonPressListener() {
 
@@ -122,6 +128,8 @@ public class CustomAlarmFragment extends Fragment {
 				Toast.makeText(App.getContext(), "Alarm is cancelled", Toast.LENGTH_SHORT).show();
 			}
 		});
+
+		card.setDismissible(true);
 
 		// Add the card info to the database
 		DatabaseOperations databaseOperations = new DatabaseOperations(App.getContext());
@@ -152,10 +160,20 @@ public class CustomAlarmFragment extends Fragment {
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
 
+		card.setOnOverflowButtonPressedListener(new OnButtonPressListener() {
+
+			@Override
+			public void onButtonPressedListener(View view, Card card) {
+
+				Toast.makeText(App.getContext(), "I'm working", Toast.LENGTH_SHORT).show();
+			}
+		});
+
 		card.setOnRightButtonPressedListener(new OnButtonPressListener() {
 
 			@Override
 			public void onButtonPressedListener(View view, Card card) {
+
 				DatabaseOperations dop = new DatabaseOperations(App.getContext());
 				dop.deleteCard(dop, hrs, mts);
 

@@ -2,9 +2,11 @@ package com.rmh.powernap.powernapalarm;
 
 
 import android.app.FragmentTransaction;
+import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -31,7 +33,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		setUpLayout();
 
 		if(savedInstanceState == null){
-			changeFragment(new StandardAlarmFragment());
+			changeFragment(new StandardAlarmFragment(), null);
 		}
 	}
 
@@ -60,9 +62,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	public void onClick(View view){
 
 		if(view == itemStandardAlarm){
-			changeFragment(new StandardAlarmFragment());
+			changeFragment(new StandardAlarmFragment(), null);
 		} else if(view == itemCustomAlarm){
-			changeFragment(new CustomAlarmFragment());
+			changeFragment(new CustomAlarmFragment(), null);
+		} else if(view == itemSettings){
+			changeFragment(null, new SettingsFragment());
 		}
 		resideMenu.closeMenu();
 	}
@@ -72,13 +76,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		return resideMenu.dispatchTouchEvent(ev);
 	}
 
-	private void changeFragment(Fragment targetFragment){
-		resideMenu.clearIgnoredViewList();
-		getSupportFragmentManager()
-				.beginTransaction()
-				.replace(R.id.main_fragment, targetFragment, "fragment")
-				.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-				.commit();
+	private void changeFragment(Fragment targetFragment, PreferenceFragment preferenceFragment){
+
+		if(targetFragment != null) {
+			Log.d("FRAGMENT_MANAGER", "Target fragment is not null");
+			resideMenu.clearIgnoredViewList();
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.main_fragment, targetFragment, "fragment")
+					.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+					.commit();
+		} else if(preferenceFragment != null){
+			Log.d("FRAGMENT_MANAGER", "Preference fragment is not null");
+			resideMenu.clearIgnoredViewList();
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.main_fragment, preferenceFragment, "fragment")
+					.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+					.commit();
+		}
+
 	}
 
 	public ResideMenu getResideMenu(){
