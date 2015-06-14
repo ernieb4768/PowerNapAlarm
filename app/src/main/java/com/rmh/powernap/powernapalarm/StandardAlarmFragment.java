@@ -23,7 +23,6 @@ public class StandardAlarmFragment extends Fragment {
 	private ResideMenu resideMenu;
 	private AlarmManager alarmManager =
 			(AlarmManager)(App.getContext().getSystemService(Context.ALARM_SERVICE));
-	private AlarmClock alarmClock = new AlarmClock(alarmManager);
 
 	public StandardAlarm theQuickie = new StandardAlarm(
 			App.getContext().getString(R.string.ten_minute_image_text),
@@ -86,6 +85,29 @@ public class StandardAlarmFragment extends Fragment {
 
 	private BasicImageButtonsCard buildMaterialCard(int i){
 
+		int len;
+
+		switch(i){
+			case 0:
+				len = 10;
+				break;
+			case 1:
+				len = 15;
+				break;
+			case 2:
+				len = 20;
+				break;
+			case 3:
+				len = 30;
+				break;
+			case 4:
+				len = 45;
+				break;
+			case 5:
+				len = 60;
+				break;
+		}
+
 		BasicImageButtonsCard card = new BasicImageButtonsCard(this.getActivity());
 		card.setTitle(standardAlarms[i].imageText);
 		card.setDescription(standardAlarms[i].subTitle);
@@ -93,6 +115,8 @@ public class StandardAlarmFragment extends Fragment {
 		card.setLeftButtonText(R.string.card_button_set);
 		card.setRightButtonText(R.string.card_button_cancel);
 		card.setDividerVisible(true);
+
+		final AlarmClock alarmClock = new AlarmClock(alarmManager, 5);
 
 		card.setOnLeftButtonPressedListener(new OnButtonPressListener() {
 

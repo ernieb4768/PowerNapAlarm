@@ -1,6 +1,7 @@
 package com.rmh.powernap.powernapalarm;
 
 import android.content.Context;
+import android.support.v7.internal.view.menu.MenuBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,7 +18,7 @@ import com.dexafree.materialList.cards.OnButtonPressListener;
  * except with a small menu in the top right corner.
  */
 
-public class CustomCard extends ExtendedCard {
+public class CustomCard extends ExtendedCard implements View.OnClickListener {
 
 	private View menuView;
 	private ImageButton button;
@@ -36,43 +37,27 @@ public class CustomCard extends ExtendedCard {
 		return R.layout.custom_card_layout;
 	}
 
-	public void setOnOverflowButtonPressedListener(OnButtonPressListener onOverflowButtonPressedListener){
-		this.onOverflowButtonPressedListener = onOverflowButtonPressedListener;
-	}
+	@Override
+	public void onClick(View view){
 
+		PopupMenu popupMenu = new PopupMenu(App.getContext(), view);
 
-
-
-
-
-
-
-
-	/*public void setOnPopupMenuClickListener(){
-
-		button = (ImageButton) menuView.findViewById(R.id.settings_button);
-		button.setOnClickListener(new View.OnClickListener() {
-
+		popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
 			@Override
-			public void onClick(View v) {
-				// Create the popup menu
-				PopupMenu popupMenu = new PopupMenu(App.getContext(), button);
-				// Inflate the popup with the menu resource file
-				popupMenu.getMenuInflater().inflate(R.menu.menu_overflow, popupMenu.getMenu());
-				Log.d(popupLog, "Popup Menu created and inflated");
-
-				// Add menu item click listener
-				popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						Toast.makeText(App.getContext(), "You clicked " + item.getTitle(), Toast.LENGTH_SHORT).show();
+			public boolean onMenuItemClick(MenuItem item){
+				switch(item.getItemId()){
+					case R.id.overflow_delete:
+						Toast.makeText(App.getContext(), "Alarm is deleted", Toast.LENGTH_SHORT).show();
+						return true;
+					default:
 						return false;
-					}
-				});
+				}
 			}
 		});
 
-	}*/
+		popupMenu.inflate(R.menu.menu_overflow);
+		popupMenu.show();
+
+	}
 
 }

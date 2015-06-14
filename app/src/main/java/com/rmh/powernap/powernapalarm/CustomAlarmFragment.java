@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -62,7 +65,6 @@ public class CustomAlarmFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-
 				alertDialogBoxHour();
 			}
 		});
@@ -96,6 +98,7 @@ public class CustomAlarmFragment extends Fragment {
 
 		final int hrs = h;
 		final int mts = m;
+		ImageButton button = (ImageButton) cardView.findViewById(R.id.settings_button);
 
 		// Create the card and add the content
 		CustomCard card = new CustomCard(this.getActivity());
@@ -105,11 +108,26 @@ public class CustomAlarmFragment extends Fragment {
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
 
-		card.setOnOverflowButtonPressedListener(new OnButtonPressListener() {
-
+		button.setOnClickListener(new View.OnClickListener(){
 			@Override
-			public void onButtonPressedListener(View view, Card card) {
-				Toast.makeText(App.getContext(), "I'm working", Toast.LENGTH_SHORT).show();
+			public void onClick(View v){
+				PopupMenu popupMenu = new PopupMenu(App.getContext(), v);
+
+				popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+					@Override
+					public boolean onMenuItemClick(MenuItem item){
+						switch(item.getItemId()){
+							case R.id.overflow_delete:
+								Toast.makeText(App.getContext(), "Alarm is deleted", Toast.LENGTH_SHORT).show();
+								return true;
+							default:
+								return false;
+						}
+					}
+				});
+
+				popupMenu.inflate(R.menu.menu_overflow);
+				popupMenu.show();
 			}
 		});
 
@@ -151,6 +169,7 @@ public class CustomAlarmFragment extends Fragment {
 
 		final int hrs = h;
 		final int mts = m;
+		ImageButton button = (ImageButton) cardView.findViewById(R.id.settings_button);
 
 		// Create the card and add the content
 		CustomCard card = new CustomCard(this.getActivity());
@@ -160,12 +179,26 @@ public class CustomAlarmFragment extends Fragment {
 		card.setRightButtonText("Cancel Alarm");
 		card.setDescription(h + " hours and " + m + " minutes.");
 
-		card.setOnOverflowButtonPressedListener(new OnButtonPressListener() {
-
+		button.setOnClickListener(new View.OnClickListener(){
 			@Override
-			public void onButtonPressedListener(View view, Card card) {
+			public void onClick(View v){
+				PopupMenu popupMenu = new PopupMenu(App.getContext(), v);
 
-				Toast.makeText(App.getContext(), "I'm working", Toast.LENGTH_SHORT).show();
+				popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+					@Override
+					public boolean onMenuItemClick(MenuItem item){
+						switch(item.getItemId()){
+							case R.id.overflow_delete:
+								Toast.makeText(App.getContext(), "Alarm is deleted", Toast.LENGTH_SHORT).show();
+								return true;
+							default:
+								return false;
+						}
+					}
+				});
+
+				popupMenu.inflate(R.menu.menu_overflow);
+				popupMenu.show();
 			}
 		});
 

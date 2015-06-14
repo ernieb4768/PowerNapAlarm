@@ -3,6 +3,7 @@ package com.rmh.powernap.powernapalarm;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.SystemClock;
 
 /**
@@ -10,12 +11,13 @@ import android.os.SystemClock;
  */
 public class AlarmClock {
 
-	private PendingIntent pendingIntent;
-	public AlarmManager alarmManager;
+	private AlarmManager alarmManager;
+	private int alarmLength;
 
-	public AlarmClock(AlarmManager alarmManager){
+	public AlarmClock(AlarmManager alarmManager, int length){
 
 		this.alarmManager = alarmManager;
+		alarmLength = length;
 
 	}
 
@@ -23,19 +25,16 @@ public class AlarmClock {
 	public void setAlarm(){
 
 		Intent intent = new Intent(App.getContext(), AlarmReceiver.class);
-		pendingIntent = PendingIntent.getBroadcast(App.getContext(), 0, intent, 0);
-		alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-				SystemClock.elapsedRealtime() + 60 * 1000,
-				pendingIntent);
-
+		PendingIntent pendingIntent = PendingIntent.getActivity(App.getContext(), 2, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		if(Build.VERSION.SDK_INT >= 19){
+			alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (alarmLength * 1000), pendingIntent);
+		} else {
+			alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (alarmLength * 1000), pendingIntent);
+		}
 	}
 
 	// If the alarm is set, cancel it. This is called when the "Cancel" button on the card is clicked
 	public void cancelAlarm(){
-
-		if(alarmManager != null){
-			alarmManager.cancel(pendingIntent);
-		}
 
 	}
 
